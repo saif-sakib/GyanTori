@@ -1,0 +1,16 @@
+# Build output
+bookshop/target/
+
+# Runtime data written by the app
+session.properties
+uploads/
+
+# Editor / tool files
+.cph/
+**/.cph/
+.vscode/
+.idea/
+*.iml
+
+# Secrets
+.env

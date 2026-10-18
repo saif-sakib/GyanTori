@@ -12,7 +12,8 @@ public class DatabaseManager {
     private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
 
     // Configuration constants
-    private static final String CONNECTION_STRING = "mongodb+srv://sakib:ZLsT19blLzqcMsNd@cluster0.s32ut.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    // Set MONGODB_URI in the environment (see README); never commit credentials.
+    private static final String CONNECTION_STRING = System.getenv("MONGODB_URI");
     private static final String DATABASE_NAME = "gyantori";
 
     // MongoDB client instances
@@ -21,6 +22,9 @@ public class DatabaseManager {
 
     // Initialize database connection
     static {
+        if (CONNECTION_STRING == null || CONNECTION_STRING.isBlank()) {
+            throw new IllegalStateException("MONGODB_URI is not set; see README.md");
+        }
         try {
             mongoClient = MongoClients.create(CONNECTION_STRING);
             database = mongoClient.getDatabase(DATABASE_NAME);
